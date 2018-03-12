@@ -1,0 +1,15 @@
+{
+    "name":"dockertest",
+    "version":"1.0.0",
+    "description":"teste do docker",
+    "main":"index.js",
+    "scripts":{
+        "test":"echo \"Error: no test specified\" && exit 1",
+        "start":"node ."
+    },
+    "author":"Rafael Petronilio",
+    "license":"ISC",
+    "dependencies":{
+        "express":"^4.15.3"   
+    }    
+}
