@@ -1,0 +1,71 @@
+##
+## Docker compose alura books
+##
+version : '3'
+# servicos do docker a subir
+services: 
+# container de load balance  
+  nginx:
+    build:
+      dockerfile: ./docker/nginx.dockerfile
+      context: .
+    image: douglasq/nginx
+    container_name: nginx
+    ports: 
+      # portas container:externa
+      - "80:80"
+    networks: 
+      - production-network
+    depends_on:
+      - "node1"
+      - "node2"
+      - "node3"  
+# container o de banco de dados
+  mongodb:
+    image: mongo
+    networks:
+      - production-network
+# aplicacao node js 1
+  node1:
+    build:
+      dockerfile: ./docker/alura-books.dockerfile
+      context: .
+    image: douglasq/alura-books
+    container_name: alura-books-1  
+    ports:
+      - "3000"
+    networks:
+      - production-network
+    depends_on:
+      - "mongodb"  
+# aplicacao node js 1
+  node2:
+    build:
+      dockerfile: ./docker/alura-books.dockerfile
+      context: .
+    image: douglasq/alura-books
+    container_name: alura-books-2  
+    ports:
+      - "3000"
+    networks:
+      - production-network
+    depends_on:
+      - "mongodb"  
+# aplicacao node js 1
+  node3:
+    build:
+      dockerfile: ./docker/alura-books.dockerfile
+      context: .
+    image: douglasq/alura-books
+    container_name: alura-books-3  
+    ports:
+      - "3000"
+    networks:
+      - production-network
+    depends_on:
+      - "mongodb"  
+# redes mapeadas dos containers
+networks: 
+  production-network:
+    driver: bridge 
+
